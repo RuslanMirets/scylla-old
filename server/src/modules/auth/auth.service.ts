@@ -1,11 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { RoleService } from '../role/role.service';
 import { UserService } from '../user/user.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly userService: UserService, private readonly jwtService: JwtService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly jwtService: JwtService,
+    private readonly roleService: RoleService,
+  ) {}
 
   async validateUser(username: string, pass: string) {
     const user = await this.userService.findOneByEmail(username);
@@ -33,6 +38,9 @@ export class AuthService {
 
     const newUser = await this.userService.create({ ...user, password: pass });
 
+    const role = await this.roleService.findOneByValue('USER');
+    await newUser.$set('role', role.id);
+
     const { password, ...userData } = newUser['dataValues'];
 
     const token = await this.generateToken(userData);
@@ -40,8 +48,8 @@ export class AuthService {
     return { ...userData, token };
   }
 
-  private async generateToken(user: { id: number; email: string }) {
-    const payload = { id: user.id, email: user.email };
+  private async generateToken(user: { id: number; email: string; role: string[] }) {
+    const payload = { id: user.id, email: user.email, role: user.role };
     const token = await this.jwtService.signAsync(payload);
     return token;
   }

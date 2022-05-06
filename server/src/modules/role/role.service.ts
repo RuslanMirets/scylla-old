@@ -14,4 +14,8 @@ export class RoleService {
   async findAll(): Promise<Role[]> {
     return await this.roleRepository.findAll<Role>();
   }
+
+  async findOneByValue(value: string): Promise<Role> {
+    return await this.roleRepository.findOne<Role>({ where: { value } });
+  }
 }
