@@ -7,8 +7,8 @@ import { User } from './models/user.model';
 export class UserService {
   constructor(@Inject(USER_REPOSITORY) private readonly userRepository: typeof User) {}
 
-  async create(user: UserDto): Promise<User> {
-    return await this.userRepository.create<User>(user);
+  async create(dto: UserDto): Promise<User> {
+    return await this.userRepository.create<User>(dto);
   }
 
   async findOneByEmail(email: string): Promise<User> {
