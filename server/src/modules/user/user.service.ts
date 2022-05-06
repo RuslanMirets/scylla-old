@@ -12,10 +12,17 @@ export class UserService {
   }
 
   async findOneByEmail(email: string): Promise<User> {
-    return await this.userRepository.findOne<User>({ where: { email } });
+    return await this.userRepository.findOne<User>({ where: { email }, include: { all: true } });
   }
 
   async findOneById(id: number): Promise<User> {
-    return await this.userRepository.findOne<User>({ where: { id } });
+    return await this.userRepository.findOne<User>({ where: { id }, include: { all: true } });
+  }
+
+  async findAll(): Promise<User[]> {
+    return await this.userRepository.findAll<User>({
+      attributes: { exclude: ['password'] },
+      include: { all: true },
+    });
   }
 }
