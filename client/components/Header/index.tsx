@@ -17,11 +17,12 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import PeopleIcon from '@mui/icons-material/People';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import React from 'react';
+import React, { useState } from 'react';
 import { LinkItem } from '../LinkItem';
 import { NavItem } from '../NavItem';
 import styles from './Header.module.scss';
 import Link from 'next/link';
+import { AuthDialog } from '../AuthDialog';
 
 const pages = [
   { title: 'Главная', href: '/' },
@@ -34,7 +35,7 @@ const adminItems = [
 ];
 
 export const Header: React.FC = () => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -45,6 +46,14 @@ export const Header: React.FC = () => {
 
   const handleLogout = () => {
     handleClose();
+  };
+
+  const [authDialog, setAuthDialog] = useState(false);
+  const toggleAuthDialog = () => {
+    setAuthDialog(!authDialog);
+  };
+  const openAuthDialog = () => {
+    toggleAuthDialog();
   };
 
   const isAuth = false;
@@ -129,13 +138,14 @@ export const Header: React.FC = () => {
                 </Menu>
               </>
             ) : (
-              <Button variant="contained" color="secondary">
+              <Button variant="contained" color="secondary" onClick={openAuthDialog}>
                 Войти
               </Button>
             )}
           </Box>
         </Toolbar>
       </Container>
+      <AuthDialog open={authDialog} onClose={toggleAuthDialog} />
     </AppBar>
   );
 };
