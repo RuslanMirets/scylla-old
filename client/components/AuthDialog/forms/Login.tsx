@@ -4,15 +4,19 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { LoginFormSchema } from '../../../utils/validations';
 import { FormField } from '../../FormField';
 import { Button } from '@mui/material';
+import { useAppDispatch } from '../../../store/hooks';
+import { login } from '../../../store/actions/user';
 
 export const LoginForm: React.FC = () => {
+  const disptach = useAppDispatch();
+
   const methods = useForm({
     mode: 'onChange',
     resolver: yupResolver(LoginFormSchema),
   });
 
   const onSubmit = (data: any) => {
-    console.log(data);
+    disptach(login(data));
   };
 
   return (

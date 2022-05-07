@@ -2,17 +2,21 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Button } from '@mui/material';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { register } from '../../../store/actions/user';
+import { useAppDispatch } from '../../../store/hooks';
 import { RegisterFormSchema } from '../../../utils/validations';
 import { FormField } from '../../FormField';
 
 export const RegisterForm: React.FC = () => {
+  const dispatch = useAppDispatch();
+
   const methods = useForm({
     mode: 'onChange',
     resolver: yupResolver(RegisterFormSchema),
   });
 
   const onSubmit = (data: any) => {
-    console.log(data);
+    dispatch(register(data));
   };
 
   return (
