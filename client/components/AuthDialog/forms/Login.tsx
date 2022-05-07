@@ -4,15 +4,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { LoginFormSchema } from '../../../utils/validations';
 import { FormField } from '../../FormField';
 import { Button } from '@mui/material';
-import { useAppDispatch } from '../../../store/hooks';
-import { login } from '../../../store/actions/user';
 
 interface IProps {
   onClose: () => void;
 }
 
 export const LoginForm: React.FC<IProps> = ({ onClose }) => {
-  const disptach = useAppDispatch();
 
   const methods = useForm({
     mode: 'onChange',
@@ -20,7 +17,6 @@ export const LoginForm: React.FC<IProps> = ({ onClose }) => {
   });
 
   const onSubmit = (data: any) => {
-    disptach(login(data));
     onClose();
   };
 

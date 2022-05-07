@@ -23,8 +23,6 @@ import { NavItem } from '../NavItem';
 import styles from './Header.module.scss';
 import Link from 'next/link';
 import { AuthDialog } from '../AuthDialog';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { logout } from '../../store/actions/user';
 
 const pages = [
   { title: 'Главная', href: '/' },
@@ -37,10 +35,6 @@ const adminItems = [
 ];
 
 export const Header: React.FC = () => {
-  const disptach = useAppDispatch();
-
-  const { user } = useAppSelector((state) => state.user);
-
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -51,7 +45,6 @@ export const Header: React.FC = () => {
   };
 
   const handleLogout = () => {
-    disptach(logout());
     handleClose();
   };
 
@@ -64,6 +57,7 @@ export const Header: React.FC = () => {
   };
 
   const isAdmin = false;
+  const user = true;
 
   return (
     <AppBar className={styles.root}>
