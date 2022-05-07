@@ -27,6 +27,7 @@ import { AuthDialog } from '../AuthDialog';
 const pages = [
   { title: 'Главная', href: '/' },
   { title: 'UI', href: '/ui' },
+  { title: 'Пользователи', href: '/users' },
 ];
 
 const adminItems = [
