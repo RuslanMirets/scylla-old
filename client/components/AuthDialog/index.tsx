@@ -12,6 +12,7 @@ import React, { useState } from 'react';
 import { LoginForm } from './forms/Login';
 import styles from './AuthDialog.module.scss';
 import { RegisterForm } from './forms/Register';
+import { useAppSelector } from '../../store/hooks';
 
 interface IProps {
   open: boolean;
@@ -33,8 +34,8 @@ export const AuthDialog: React.FC<IProps> = ({ open, onClose }) => {
         </IconButton>
       </DialogTitle>
       <DialogContent className={styles.content} dividers>
-        {formType === 'login' && <LoginForm />}
-        {formType === 'register' && <RegisterForm />}
+        {formType === 'login' && <LoginForm onClose={onClose} />}
+        {formType === 'register' && <RegisterForm onClose={onClose} />}
       </DialogContent>
       <DialogActions className={styles.actions}>
         <Typography variant="body1">

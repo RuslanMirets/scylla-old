@@ -7,7 +7,11 @@ import { Button } from '@mui/material';
 import { useAppDispatch } from '../../../store/hooks';
 import { login } from '../../../store/actions/user';
 
-export const LoginForm: React.FC = () => {
+interface IProps {
+  onClose: () => void;
+}
+
+export const LoginForm: React.FC<IProps> = ({ onClose }) => {
   const disptach = useAppDispatch();
 
   const methods = useForm({
@@ -17,6 +21,7 @@ export const LoginForm: React.FC = () => {
 
   const onSubmit = (data: any) => {
     disptach(login(data));
+    onClose();
   };
 
   return (

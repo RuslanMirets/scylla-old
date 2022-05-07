@@ -7,7 +7,11 @@ import { useAppDispatch } from '../../../store/hooks';
 import { RegisterFormSchema } from '../../../utils/validations';
 import { FormField } from '../../FormField';
 
-export const RegisterForm: React.FC = () => {
+interface IProps {
+  onClose: () => void;
+}
+
+export const RegisterForm: React.FC<IProps> = ({ onClose }) => {
   const dispatch = useAppDispatch();
 
   const methods = useForm({
@@ -17,6 +21,7 @@ export const RegisterForm: React.FC = () => {
 
   const onSubmit = (data: any) => {
     dispatch(register(data));
+    onClose();
   };
 
   return (
