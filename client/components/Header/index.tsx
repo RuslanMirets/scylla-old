@@ -64,7 +64,7 @@ export const Header: React.FC = () => {
       <Container>
         <Toolbar className={styles.toolbar} disableGutters>
           <LinkItem className={styles.logo} href="/">
-            <Typography variant="h5">LOGO</Typography>
+            <Typography variant="h5">Scylla</Typography>
           </LinkItem>
           <Box className={styles.menu}>
             {pages.map((page) => (
